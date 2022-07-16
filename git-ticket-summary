@@ -1,0 +1,27 @@
+#!/bin/sh
+
+TICKET_ID=$1
+
+LOCAL_BRANCH=`git name-rev --name-only HEAD`
+TRACKING_BRANCH=`git config branch.$LOCAL_BRANCH.merge`
+TRACKING_REMOTE=`git config branch.$LOCAL_BRANCH.remote`
+TRACKING_REMOTE_URL=`git config remote.$TRACKING_REMOTE.url`
+
+# replace refs/heads/ with empty string
+SHORT_TRACKING_BRANCH=${TRACKING_BRANCH/refs\/heads\//}
+
+FIXED_REMOTE_URL=${TRACKING_REMOTE_URL/git@github.com:/"https://github.com/"}
+BASE_URL=${FIXED_REMOTE_URL%????}
+
+COMMIT_BASE_URL="${BASE_URL}/commit/"
+
+echo "\nTicket Summary - $TICKET_ID"
+
+echo "\n## Commits\n"
+git log --pretty=format:"%C(yellow)%h%Creset - %G? -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset $COMMIT_BASE_URL%H" --grep=$TICKET_ID
+
+echo "\n## Files created / deleted / modified\n"
+
+INVOLVED_FILES=`git log --pretty=format:"%H" --grep=$TICKET_ID | xargs -n 1 git diff-tree --no-commit-id --name-only -r `
+
+echo "$INVOLVED_FILES" | sort | uniq | xargs -n 1 -I % echo ${BASE_URL}/blob/${SHORT_TRACKING_BRANCH}/%
