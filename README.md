@@ -1,3 +1,6 @@
+
+# Git Ticket Summary
+
 This repository houses the source code for the Git Ticket Summary command line
 tool.
 
