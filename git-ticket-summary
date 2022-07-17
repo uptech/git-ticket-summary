@@ -5,17 +5,18 @@ REF=$2
 
 if [ -z $TICKET_ID ]; then
 	echo "Error: missing <ticket-id> argument"
-	echo "Usage: git-ticket-summary <ticket-id> <ref>"
+	echo "Usage: git-ticket-summary <ticket-id> <branch>"
 	exit 1
 fi
 
 if [ -z $REF ]; then
-	echo "Error: missing <ref> argument"
-	echo "Usage: git-ticket-summary <ticket-id> <ref>"
+	echo "Error: missing <branch> argument"
+	echo "Usage: git-ticket-summary <ticket-id> <branch>"
 	exit 2
 fi
 
-LOCAL_BRANCH=`git name-rev --name-only HEAD`
+# LOCAL_BRANCH=`git name-rev --name-only HEAD`
+LOCAL_BRANCH=$REF
 TRACKING_BRANCH=`git config branch.$LOCAL_BRANCH.merge`
 TRACKING_REMOTE=`git config branch.$LOCAL_BRANCH.remote`
 TRACKING_REMOTE_URL=`git config remote.$TRACKING_REMOTE.url`
