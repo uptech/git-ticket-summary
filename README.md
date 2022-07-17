@@ -10,6 +10,21 @@ this only supports GitHub Cloud.
 
 ## Installation
 
+### macOS
+
+On macOS `git-ticket-summary` is distributed via our Homebrew tap. Thus you can
+install it simply by running the following.
+
+```
+brew tap uptech/homebrew-oss
+brew install git-ticket-summary
+```
+
+### Other
+
+On any other platform or if you just want to install from source you may do so
+doing the following.
+
 Simply copy `git-ticket-summary` to a location that exists within your `PATH`
 environment variable, e.g. `/usr/local/bin`.
 
