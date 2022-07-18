@@ -12,9 +12,7 @@ if [ -z $TICKET_ID ]; then
 fi
 
 if [ -z $REF ]; then
-	echo "Error: missing <branch> argument"
-	echo "Usage: git-ticket-summary <ticket-id> <branch>"
-	exit 2
+	REF="main"
 fi
 
 # LOCAL_BRANCH=`git name-rev --name-only HEAD`
