@@ -1,5 +1,7 @@
 #!/bin/sh
 
+VERSION="0.1.0"
+
 TICKET_ID=$1
 REF=$2
 
@@ -29,7 +31,7 @@ BASE_URL=${FIXED_REMOTE_URL%????}
 
 COMMIT_BASE_URL="${BASE_URL}/commit/"
 
-echo "\nTicket Summary\n"
+echo "\nTicket Summary - v${VERSION}\n"
 
 echo "ticket: ${TICKET_ID}"
 echo "repository: ${TRACKING_REMOTE_URL}"
