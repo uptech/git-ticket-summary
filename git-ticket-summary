@@ -37,10 +37,11 @@ echo "ticket: ${TICKET_ID}"
 echo "repository: ${TRACKING_REMOTE_URL}"
 
 echo "\n## Commits\n"
-git log ${REF} --pretty=format:"%C(yellow)%h%Creset - %G? -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset $COMMIT_BASE_URL%H" --grep=$TICKET_ID
+git --no-pager log ${REF} --pretty=format:"%C(yellow)%h%Creset - %G? -%C(red)%d%Creset %s %Cgreen(%ar) %C(bold blue)<%an>%Creset $COMMIT_BASE_URL%H" --grep=$TICKET_ID
+echo
 
 echo "\n## Files created / deleted / modified\n"
 
-INVOLVED_FILES=`git log ${REF} --pretty=format:"%H" --grep=$TICKET_ID | xargs -n 1 git diff-tree --no-commit-id --name-only -r `
+INVOLVED_FILES=`git --no-pager log ${REF} --pretty=format:"%H" --grep=$TICKET_ID | xargs -n 1 git diff-tree --no-commit-id --name-only -r `
 
 echo "$INVOLVED_FILES" | sort | uniq | xargs -n 1 -I % echo ${BASE_URL}/blob/${SHORT_TRACKING_BRANCH}/%
