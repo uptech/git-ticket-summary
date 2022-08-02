@@ -1,4 +1,5 @@
 use structopt::StructOpt;
+mod utils;
 
 #[derive(Debug, StructOpt)]
 #[structopt(name = "git-ticket-summary")]
@@ -15,6 +16,8 @@ fn main() {
 
 pub fn generate_summary(args: &ApplicationArguments) {
   let repo = git2::Repository::discover("./").unwrap();
+
+  utils::execute("git", &["fetch"]).unwrap();
 
   let config = repo.config().unwrap();
   let tracking_branch = config.get_string(format!("branch.{}.merge", args.branch).as_str()).unwrap();
